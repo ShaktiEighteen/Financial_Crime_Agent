@@ -39,14 +39,6 @@ export default function Header({ onOpenDemoScript }) {
             <span className="font-mono text-emerald-400 font-medium">FalkorDB / In-Memory Active</span>
           </div>
 
-          {/* 2-Min Demo Script Pill */}
-          <button
-            onClick={onOpenDemoScript}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-medium transition cursor-pointer"
-          >
-            <Terminal className="w-3.5 h-3.5" />
-            <span>2-Min Judge Script</span>
-          </button>
 
           {/* GitHub Repo Link */}
           <a

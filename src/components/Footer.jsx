@@ -20,12 +20,22 @@ export default function Footer({ onOpenDemoScript }) {
 
           {/* Quick Links */}
           <div className="flex flex-wrap items-center justify-center gap-4 text-slate-400">
+            <a
+              href="https://willowy-scone-a14bd5.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 transition font-medium"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              <span>Live Website</span>
+            </a>
+
             <button
               onClick={onOpenDemoScript}
               className="hover:text-cyan-400 flex items-center gap-1.5 transition cursor-pointer"
             >
               <Terminal className="w-3.5 h-3.5" />
-              <span>2-Minute Demo Pitch Script</span>
+              <span>2-Minute Pitch Script</span>
             </button>
 
             <a

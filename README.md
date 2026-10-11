@@ -3,9 +3,17 @@
 > **"Follow the money. Expose the network."**  
 > An AI investigative copilot that uncovers money laundering rings, shell-company networks, and smurfing funnels using **FalkorDB** graph traversal.
 
+[![Live Demo](https://img.shields.io/badge/Live%20Website-willowy--scone--a14bd5.netlify.app-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://willowy-scone-a14bd5.netlify.app/)
 [![WeMakeDevs Hackathon](https://img.shields.io/badge/Hackathon-Graph%20Hacks%202026-06b6d4?style=for-the-badge)](https://wemakedevs.org)
 [![FalkorDB](https://img.shields.io/badge/Powered%20By-FalkorDB%20Cypher-ff0055?style=for-the-badge)](https://falkordb.com)
 [![Status](https://img.shields.io/badge/Status-Live%20SOC%20Cockpit-10b981?style=for-the-badge)]()
+
+---
+
+## 🌐 Live Website
+
+- **Website Name**: **Financial Crime Agent**
+- **Live URL**: [https://willowy-scone-a14bd5.netlify.app/](https://willowy-scone-a14bd5.netlify.app/)
 
 ---
 
@@ -86,7 +94,7 @@ Traditional Anti-Money Laundering (AML) monitoring reviews tabular ledgers. In a
 npm install
 npm run dev
 ```
-Open [http://localhost:5173](http://localhost:5173) in your browser.
+Open [http://localhost:5173](http://localhost:5173) in your browser, or visit the live deployment at [https://willowy-scone-a14bd5.netlify.app/](https://willowy-scone-a14bd5.netlify.app/).
 
 ### 2. (Optional) Run with FalkorDB Docker
 ```bash
@@ -100,8 +108,6 @@ python seed_data.py
 ---
 
 ## ⏱️ 2-Minute Hackathon Demo Script for Judges
-
-*Press the **"2-Min Judge Script"** button in the header of the app anytime to view the live prompter.*
 
 - **0:00 - 0:15 [The Hook]**:
   > *"Judges, traditional anti-money laundering tools look at spreadsheets. In a spreadsheet, each row looks normal. But criminal syndicates hide in the relationships. We built Financial Crime Agent powered by FalkorDB."*

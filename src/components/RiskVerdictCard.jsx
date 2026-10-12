@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { ShieldAlert, AlertOctagon, CheckCircle2, FileText, Download, UserCheck, ChevronDown, ChevronUp, Copy, Check } from 'lucide-react';
-import confetti from 'canvas-confetti';
+import { Copy, Check, FileText } from 'lucide-react';
 
 export default function RiskVerdictCard({ scenario }) {
   const [showSarModal, setShowSarModal] = useState(false);
@@ -8,33 +7,27 @@ export default function RiskVerdictCard({ scenario }) {
   const [copiedSar, setCopiedSar] = useState(false);
 
   const handleAnalystSignoff = () => {
-    const nextState = !analystApproved;
-    setAnalystApproved(nextState);
-    if (nextState) {
-      confetti({
-        particleCount: 60,
-        spread: 60,
-        origin: { y: 0.8 },
-        colors: ['#06b6d4', '#10b981', '#3b82f6']
-      });
-    }
+    setAnalystApproved(!analystApproved);
   };
 
   const handleCopySar = () => {
     const sar = scenario.sarReport;
-    const text = `SUSPICIOUS ACTIVITY REPORT (SAR) DRAFT
+    const text = `UNITED STATES DEPARTMENT OF THE TREASURY
+FINANCIAL CRIMES ENFORCEMENT NETWORK (FinCEN)
+SUSPICIOUS ACTIVITY REPORT (SAR) DRAFT EXHIBIT
+
 FILING ID: ${sar.filingId}
 PRIORITY: ${sar.priority}
 SUSPECT ENTITIES: ${sar.suspectEntities.join(', ')}
-TOTAL AMOUNT: ${sar.totalAmountUSD}
+TOTAL VOLUME: ${sar.totalAmountUSD}
 TIMEFRAME: ${sar.timeframe}
 
-NARRATIVE SUMMARY:
+INVESTIGATIVE SUMMARY & TOPOLOGY EVIDENCE:
 ${sar.narrative}
 
 ---
-FILED VIA: Financial Crime Agent (Graph Hacks 2026)
-ANALYST SIGNOFF STATUS: ${analystApproved ? 'APPROVED & SIGNED' : 'PENDING HUMAN REVIEW'}
+DISCLOSURE: Generated via Financial Crime Agent (WeMakeDevs Graph Hacks 2026).
+ANALYST VERIFICATION STATUS: ${analystApproved ? 'APPROVED & SIGNED FOR SUBMISSION' : 'PENDING COMPLIANCE OFFICER SIGN-OFF'}
 `;
     navigator.clipboard.writeText(text);
     setCopiedSar(true);
@@ -42,65 +35,61 @@ ANALYST SIGNOFF STATUS: ${analystApproved ? 'APPROVED & SIGNED' : 'PENDING HUMAN
   };
 
   return (
-    <div className="bg-[#0f172a] rounded-xl border border-slate-800 p-5 shadow-xl flex flex-col justify-between">
+    <div className="bg-[#161513] border border-[#2c2924] p-4 flex flex-col justify-between">
       <div>
         {/* Header & Risk Score Badge */}
-        <div className="flex items-start justify-between gap-4 border-b border-slate-800 pb-4 mb-4">
+        <div className="flex items-start justify-between gap-4 border-b border-[#2c2924] pb-3 mb-3">
           <div>
             <div className="flex items-center gap-2">
-              <ShieldAlert className="w-5 h-5 text-red-500 animate-pulse" />
-              <h2 className="text-base font-bold text-white uppercase tracking-wider font-mono">
-                Risk Verdict & Assessment
+              <span className="w-1.5 h-1.5 bg-[#c92a2a]"></span>
+              <h2 className="text-xs font-bold text-[#faf7f2] uppercase tracking-wider font-mono">
+                RISK VERDICT &amp; ASSESSMENT
               </h2>
             </div>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Automated graph synthesis & regulatory compliance triage
+            <p className="text-[11px] text-[#9e988a] mt-0.5 font-serif">
+              Graph topology inference &amp; statutory compliance evaluation
             </p>
           </div>
 
-          {/* Big Risk Score Gauge */}
-          <div className="flex items-center gap-3 bg-red-950/40 border border-red-500/40 px-3.5 py-2 rounded-xl shrink-0">
-            <div className="text-right">
-              <div className="text-[10px] font-mono uppercase text-red-300 font-semibold tracking-wider">
-                Risk Index
-              </div>
-              <div className="text-2xl font-black font-mono text-red-400 leading-none mt-0.5">
-                {scenario.riskScore}<span className="text-xs text-red-500 font-normal">/100</span>
-              </div>
+          {/* Stamped Risk Score Indicator */}
+          <div className="border border-[#5c1919] bg-[#251212] px-3 py-1.5 text-right font-mono">
+            <div className="text-[9px] uppercase text-[#e03131] font-bold tracking-wider">
+              RISK INDEX
             </div>
-            <div className="w-3 h-8 bg-gradient-to-t from-red-600 to-amber-400 rounded-full animate-pulse" />
+            <div className="text-xl font-bold text-[#faf7f2] leading-none mt-0.5">
+              {scenario.riskScore}<span className="text-xs text-[#9e988a] font-normal"> / 100</span>
+            </div>
           </div>
         </div>
 
-        {/* Verdict Badge & Plain-English Summary */}
+        {/* Stamped Verdict & Plain-English Summary */}
         <div className="mb-4">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-red-500/20 text-red-300 border border-red-500/30 text-xs font-mono font-bold mb-2">
-            <AlertOctagon className="w-3.5 h-3.5" />
-            <span>VERDICT: {scenario.verdict}</span>
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-[#251212] border border-[#5c1919] text-[#e03131] text-[11px] font-mono font-bold mb-2">
+            <span>[VERDICT: {scenario.verdict}]</span>
           </div>
 
-          <p className="text-xs text-slate-200 leading-relaxed bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+          <p className="text-xs text-[#dcd6ca] leading-relaxed bg-[#1a1917] p-3 border border-[#2c2924] font-serif">
             {scenario.verdictSummary}
           </p>
         </div>
 
         {/* Contributing Risk Signals Breakdown */}
-        <div className="space-y-2.5 mb-5">
-          <div className="text-xs font-semibold text-slate-300 uppercase tracking-wider font-mono">
+        <div className="space-y-2 mb-4 font-mono">
+          <div className="text-[10px] font-bold text-[#9e988a] uppercase tracking-wider">
             Contributing Graph Signals:
           </div>
           {scenario.signals.map((sig, idx) => (
-            <div key={idx} className="bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/80">
+            <div key={idx} className="bg-[#1a1917] p-2.5 border border-[#2c2924]">
               <div className="flex items-center justify-between text-xs mb-1">
-                <span className="font-medium text-slate-200">{sig.name}</span>
-                <span className="font-mono text-red-400 font-bold">
-                  +{sig.score} <span className="text-slate-600 text-[10px]">/ {sig.max}</span>
+                <span className="font-semibold text-[#faf7f2] text-[11px]">{sig.name}</span>
+                <span className="text-[#e03131] font-bold text-[11px]">
+                  +{sig.score} <span className="text-[#656157] text-[10px]">/ {sig.max}</span>
                 </span>
               </div>
-              <p className="text-[11px] text-slate-400 leading-normal">{sig.desc}</p>
-              <div className="mt-1.5 w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <p className="text-[10px] text-[#9e988a] font-serif leading-normal">{sig.desc}</p>
+              <div className="mt-1.5 w-full bg-[#121110] h-1 border border-[#2c2924] overflow-hidden">
                 <div
-                  className="bg-gradient-to-r from-amber-500 to-red-500 h-full rounded-full"
+                  className="bg-[#c92a2a] h-full"
                   style={{ width: `${(sig.score / sig.max) * 100}%` }}
                 />
               </div>
@@ -110,30 +99,27 @@ ANALYST SIGNOFF STATUS: ${analystApproved ? 'APPROVED & SIGNED' : 'PENDING HUMAN
       </div>
 
       {/* Human-in-the-Loop Analyst Verification & SAR Action Strip */}
-      <div className="pt-4 border-t border-slate-800 space-y-3">
-        {/* Human Analyst Final Decision Banner */}
-        <div className="flex items-center justify-between p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-xs">
-          <div className="flex items-center gap-2">
-            <UserCheck className={`w-4 h-4 ${analystApproved ? 'text-emerald-400' : 'text-slate-400'}`} />
-            <div>
-              <div className="font-semibold text-slate-200">
-                Human Analyst Sign-off
-              </div>
-              <div className="text-[10px] text-slate-400">
-                AI flags signals &mdash; final SAR filing requires human review
-              </div>
+      <div className="pt-3 border-t border-[#2c2924] space-y-2.5">
+        {/* Human Analyst Final Decision Stamp */}
+        <div className="p-2.5 border border-[#2c2924] bg-[#1a1917] flex items-center justify-between gap-3 text-xs">
+          <div>
+            <div className="font-mono text-[11px] font-bold text-[#faf7f2]">
+              Human Analyst Sign-Off
+            </div>
+            <div className="text-[10px] text-[#9e988a] font-serif">
+              Agent surfaces topological evidence &mdash; filing requires human authorization
             </div>
           </div>
 
           <button
             onClick={handleAnalystSignoff}
-            className={`px-3 py-1.5 rounded-md font-mono text-xs font-semibold transition cursor-pointer ${
+            className={`px-3 py-1.5 text-xs font-mono font-bold transition cursor-pointer border ${
               analystApproved
-                ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
-                : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700'
+                ? 'bg-[#1b2619] text-[#2b8a3e] border-[#2b8a3e]'
+                : 'bg-[#22201d] hover:bg-[#2c2924] text-[#ece7de] border-[#3f3b34]'
             }`}
           >
-            {analystApproved ? 'Approved ✓' : 'Click to Sign'}
+            {analystApproved ? '✓ VERIFIED & SIGNED' : 'AUTHORIZE DRAFT'}
           </button>
         </div>
 
@@ -141,75 +127,72 @@ ANALYST SIGNOFF STATUS: ${analystApproved ? 'APPROVED & SIGNED' : 'PENDING HUMAN
         <div className="flex items-center gap-2">
           <button
             onClick={() => setShowSarModal(true)}
-            className="flex-1 px-4 py-2.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-semibold flex items-center justify-center gap-2 transition cursor-pointer"
+            className="flex-1 px-3 py-2 border border-[#3f3b34] bg-[#22201d] hover:bg-[#2c2924] text-[#ece7de] text-xs font-mono font-medium flex items-center justify-center gap-2 transition cursor-pointer"
           >
-            <FileText className="w-4 h-4" />
+            <FileText className="w-3.5 h-3.5" />
             <span>Open FinCEN Draft SAR Report</span>
           </button>
 
           <button
             onClick={handleCopySar}
-            className="px-3 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs flex items-center gap-1.5 transition cursor-pointer"
+            className="px-3 py-2 border border-[#3f3b34] bg-[#1a1917] hover:bg-[#22201d] text-[#9e988a] hover:text-[#ece7de] text-xs font-mono flex items-center gap-1.5 transition cursor-pointer"
             title="Copy SAR Text"
           >
-            {copiedSar ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-            <span className="hidden sm:inline">{copiedSar ? 'Copied' : 'Copy'}</span>
+            {copiedSar ? <Check className="w-3.5 h-3.5 text-[#2b8a3e]" /> : <Copy className="w-3.5 h-3.5" />}
+            <span>{copiedSar ? 'Copied' : 'Copy'}</span>
           </button>
         </div>
       </div>
 
       {/* Modal / Flyout for Full Draft SAR */}
       {showSarModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-[#090e1a] border border-slate-700 rounded-2xl w-full max-w-2xl max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85">
+          <div className="bg-[#161513] border border-[#3f3b34] w-full max-w-2xl max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
             {/* Modal Header */}
-            <div className="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/60">
-              <div className="flex items-center gap-2">
-                <FileText className="w-5 h-5 text-cyan-400" />
-                <div>
-                  <h3 className="text-sm font-bold text-white font-mono">
-                    FinCEN Form 111 &mdash; Suspicious Activity Report (SAR)
-                  </h3>
-                  <p className="text-[11px] text-slate-400">
-                    Auto-generated from FalkorDB graph evidence &amp; multi-hop trail
-                  </p>
-                </div>
+            <div className="p-4 border-b border-[#2c2924] flex items-center justify-between bg-[#1a1917]">
+              <div>
+                <h3 className="text-sm font-bold text-[#faf7f2] font-mono">
+                  FinCEN Form 111 &mdash; Suspicious Activity Report (Draft Docket)
+                </h3>
+                <p className="text-[11px] text-[#9e988a] font-serif">
+                  Auto-assembled from FalkorDB graph topology evidence trail
+                </p>
               </div>
 
               <button
                 onClick={() => setShowSarModal(false)}
-                className="text-slate-400 hover:text-white px-2 py-1 rounded text-sm transition"
+                className="text-[#9e988a] hover:text-[#ece7de] px-2 py-1 border border-[#2c2924] font-mono text-xs transition cursor-pointer"
               >
-                ✕
+                ✕ Close
               </button>
             </div>
 
             {/* Modal Body */}
-            <div className="p-5 overflow-y-auto space-y-4 text-xs font-mono text-slate-300">
-              <div className="grid grid-cols-2 gap-3 bg-slate-950 p-3 rounded-lg border border-slate-800">
+            <div className="p-5 overflow-y-auto space-y-4 text-xs font-mono text-[#dcd6ca]">
+              <div className="grid grid-cols-2 gap-3 bg-[#121110] p-3 border border-[#2c2924]">
                 <div>
-                  <span className="text-slate-500">FILING ID:</span>
-                  <div className="text-cyan-300 font-bold">{scenario.sarReport.filingId}</div>
+                  <span className="text-[#656157]">FILING DOCKET:</span>
+                  <div className="text-[#faf7f2] font-bold">{scenario.sarReport.filingId}</div>
                 </div>
                 <div>
-                  <span className="text-slate-500">PRIORITY LEVEL:</span>
-                  <div className="text-red-400 font-bold">{scenario.sarReport.priority}</div>
+                  <span className="text-[#656157]">PRIORITY LEVEL:</span>
+                  <div className="text-[#e03131] font-bold">{scenario.sarReport.priority}</div>
                 </div>
                 <div>
-                  <span className="text-slate-500">TOTAL VOLUME:</span>
-                  <div className="text-emerald-400 font-bold">{scenario.sarReport.totalAmountUSD}</div>
+                  <span className="text-[#656157]">TOTAL VOLUME:</span>
+                  <div className="text-[#c27803] font-bold">{scenario.sarReport.totalAmountUSD}</div>
                 </div>
                 <div>
-                  <span className="text-slate-500">TIMEFRAME:</span>
-                  <div className="text-slate-200">{scenario.sarReport.timeframe}</div>
+                  <span className="text-[#656157]">OBSERVATION WINDOW:</span>
+                  <div className="text-[#ece7de]">{scenario.sarReport.timeframe}</div>
                 </div>
               </div>
 
               <div>
-                <span className="text-slate-400 font-bold uppercase text-[11px]">Primary Suspect Entities:</span>
+                <span className="text-[#9e988a] font-bold uppercase text-[10px]">Primary Suspect Entities:</span>
                 <div className="mt-1 flex flex-wrap gap-1.5">
                   {scenario.sarReport.suspectEntities.map((ent, i) => (
-                    <span key={i} className="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-200 text-[11px]">
+                    <span key={i} className="px-2 py-0.5 border border-[#2c2924] bg-[#1a1917] text-[#faf7f2] text-[10px]">
                       {ent}
                     </span>
                   ))}
@@ -217,10 +200,10 @@ ANALYST SIGNOFF STATUS: ${analystApproved ? 'APPROVED & SIGNED' : 'PENDING HUMAN
               </div>
 
               <div>
-                <span className="text-slate-400 font-bold uppercase text-[11px]">Shared Telemetry &amp; Nodes:</span>
+                <span className="text-[#9e988a] font-bold uppercase text-[10px]">Shared Telemetry &amp; Non-Relational Keys:</span>
                 <div className="mt-1 flex flex-wrap gap-1.5">
                   {scenario.sarReport.sharedIdentifiers.map((id, i) => (
-                    <span key={i} className="px-2 py-0.5 rounded bg-amber-950/40 border border-amber-500/30 text-amber-300 text-[11px]">
+                    <span key={i} className="px-2 py-0.5 border border-[#5a3507] bg-[#26180a] text-[#c27803] text-[10px]">
                       {id}
                     </span>
                   ))}
@@ -228,35 +211,35 @@ ANALYST SIGNOFF STATUS: ${analystApproved ? 'APPROVED & SIGNED' : 'PENDING HUMAN
               </div>
 
               <div>
-                <span className="text-slate-400 font-bold uppercase text-[11px]">Investigative Narrative:</span>
-                <div className="mt-1.5 p-3 rounded-lg bg-slate-950 border border-slate-800 leading-relaxed text-slate-200 font-sans text-xs">
+                <span className="text-[#9e988a] font-bold uppercase text-[10px]">Investigative Narrative:</span>
+                <div className="mt-1.5 p-3.5 bg-[#121110] border border-[#2c2924] leading-relaxed text-[#ece7de] font-serif text-xs">
                   {scenario.sarReport.narrative}
                 </div>
               </div>
 
-              <div className="p-3 rounded-lg bg-cyan-950/30 border border-cyan-500/30 text-cyan-200 text-[11px] font-sans">
-                <strong>Compliance Note:</strong> This report draft has been cross-referenced against OFAC lists, PEP databases, and CTR thresholds. Final regulatory transmission requires human analyst authorization.
+              <div className="p-3 border border-[#3f3b34] bg-[#1a1917] text-[#9e988a] text-[11px] font-serif">
+                <strong className="text-[#ece7de]">Statutory Notice:</strong> This exhibit draft has been cross-referenced against OFAC Specially Designated Nationals lists and currency transaction reporting thresholds (31 U.S.C. 5318(g)). Formal regulatory transmission requires designated human compliance officer sign-off.
               </div>
             </div>
 
             {/* Modal Footer */}
-            <div className="p-4 border-t border-slate-800 bg-slate-900/60 flex items-center justify-between">
-              <div className="text-[11px] text-slate-400 font-mono">
-                Status: {analystApproved ? 'Signed by Analyst' : 'Pending Sign-off'}
+            <div className="p-4 border-t border-[#2c2924] bg-[#1a1917] flex items-center justify-between">
+              <div className="text-[11px] text-[#9e988a] font-mono">
+                Status: {analystApproved ? '✓ Signed by Compliance Officer' : 'Pending Formal Sign-off'}
               </div>
 
               <div className="flex items-center gap-2">
                 <button
                   onClick={handleCopySar}
-                  className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono transition"
+                  className="px-3 py-1.5 border border-[#2c2924] bg-[#161513] hover:bg-[#22201d] text-[#ece7de] text-xs font-mono transition cursor-pointer"
                 >
                   {copiedSar ? 'Copied ✓' : 'Copy Text'}
                 </button>
                 <button
                   onClick={() => setShowSarModal(false)}
-                  className="px-4 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold font-mono transition"
+                  className="px-4 py-1.5 border border-[#c92a2a] bg-[#c92a2a] text-[#ffffff] text-xs font-mono font-bold transition cursor-pointer"
                 >
-                  Close
+                  Dismiss
                 </button>
               </div>
             </div>
@@ -266,3 +249,4 @@ ANALYST SIGNOFF STATUS: ${analystApproved ? 'APPROVED & SIGNED' : 'PENDING HUMAN
     </div>
   );
 }
+

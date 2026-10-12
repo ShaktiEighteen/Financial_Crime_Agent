@@ -3,18 +3,18 @@ import cytoscape from 'cytoscape';
 import { ZoomIn, ZoomOut, Maximize2, RotateCcw } from 'lucide-react';
 
 const NODE_COLORS = {
-  account: '#3b82f6',  // blue
-  person: '#10b981',   // emerald
-  company: '#8b5cf6',  // purple
-  device: '#f59e0b',   // amber
-  merchant: '#ec4899'  // pink
+  account: '#ded9ce',  // Archival token
+  person: '#a8a294',   // Individual dossier token
+  company: '#c2b49d',  // Corporate entity
+  device: '#c27803',   // Hardware asset amber
+  merchant: '#b04a4a'  // Offshore gateway
 };
 
 const EDGE_COLORS = {
-  transfer: '#06b6d4',      // cyan
-  owns: '#a855f7',          // purple
-  'shares-device': '#f59e0b', // amber
-  'shares-address': '#10b981' // emerald
+  transfer: '#8c8679',        // Wire transfer ink
+  owns: '#6e685d',            // Legal ownership
+  'shares-device': '#c27803', // Hardware collision
+  'shares-address': '#7a7468' // Address collision
 };
 
 export default function GraphCanvas({
@@ -43,8 +43,8 @@ export default function GraphCanvas({
           risk: n.risk,
           subtitle: n.subtitle,
           details: n.details,
-          color: NODE_COLORS[n.type] || '#64748b',
-          size: Math.max(40, Math.min(68, 36 + (n.risk / 100) * 32))
+          color: NODE_COLORS[n.type] || '#8c8679',
+          size: Math.max(38, Math.min(62, 34 + (n.risk / 100) * 28))
         }
       })),
       ...scenario.edges.map(e => ({
@@ -56,7 +56,7 @@ export default function GraphCanvas({
           type: e.type,
           label: e.label,
           amount: e.amount || 0,
-          color: EDGE_COLORS[e.type] || '#94a3b8'
+          color: EDGE_COLORS[e.type] || '#7a7468'
         }
       }))
     ];
@@ -69,7 +69,7 @@ export default function GraphCanvas({
       container: containerRef.current,
       elements: elements,
       minZoom: 0.35,
-      maxZoom: 2.0,
+      maxZoom: 2.2,
       wheelSensitivity: 0.3,
       style: [
         {
@@ -77,90 +77,99 @@ export default function GraphCanvas({
           style: {
             'background-color': 'data(color)',
             'label': 'data(label)',
-            'color': '#ffffff',
-            'font-family': 'Inter, sans-serif',
-            'font-size': '10px',
-            'font-weight': 600,
+            'color': '#faf7f2',
+            'font-family': 'Space Mono, monospace',
+            'font-size': '9px',
+            'font-weight': 700,
             'text-valign': 'bottom',
-            'text-margin-y': 6,
-            'text-background-color': '#090d16',
-            'text-background-opacity': 0.9,
+            'text-margin-y': 5,
+            'text-background-color': '#161513',
+            'text-background-opacity': 0.95,
             'text-background-padding': '3px',
             'text-background-shape': 'roundrectangle',
+            'text-border-color': '#2c2924',
+            'text-border-width': 1,
             'width': 'data(size)',
             'height': 'data(size)',
             'border-width': 2,
-            'border-color': '#334155',
+            'border-color': '#2c2924',
             'transition-property': 'background-color, border-color, border-width, opacity, width, height',
-            'transition-duration': '0.3s'
+            'transition-duration': '0.2s'
+          }
+        },
+        {
+          selector: 'node[type = "device"]',
+          style: {
+            'shape': 'round-rectangle',
+            'border-color': '#5a3507'
+          }
+        },
+        {
+          selector: 'node[type = "merchant"]',
+          style: {
+            'shape': 'diamond',
+            'border-color': '#5c1919'
           }
         },
         {
           selector: 'node[risk >= 75]',
           style: {
             'border-width': 3,
-            'border-color': '#ef4444',
-            'shadow-blur': 16,
-            'shadow-color': '#ef4444',
-            'shadow-opacity': 0.7
+            'border-color': '#c92a2a',
+            'border-style': 'solid'
           }
         },
         {
           selector: 'node:selected',
           style: {
             'border-width': 4,
-            'border-color': '#38bdf8',
-            'shadow-blur': 25,
-            'shadow-color': '#38bdf8',
-            'shadow-opacity': 0.9
+            'border-color': '#c27803'
           }
         },
         {
           selector: 'edge',
           style: {
-            'width': 2,
+            'width': 1.8,
             'line-color': 'data(color)',
             'target-arrow-color': 'data(color)',
             'target-arrow-shape': 'triangle',
             'curve-style': 'bezier',
-            'arrow-scale': 1.1,
+            'arrow-scale': 1.0,
             'label': 'data(label)',
-            'font-family': 'JetBrains Mono, monospace',
-            'font-size': '9px',
-            'font-weight': 500,
-            'color': '#cbd5e1',
-            'text-background-color': '#090d16',
-            'text-background-opacity': 0.85,
+            'font-family': 'Space Mono, monospace',
+            'font-size': '8px',
+            'font-weight': 400,
+            'color': '#a8a294',
+            'text-background-color': '#161513',
+            'text-background-opacity': 0.9,
             'text-background-padding': '2px',
-            'text-background-shape': 'roundrectangle',
             'text-rotation': 'autorotate',
             'opacity': 0.85,
             'transition-property': 'width, line-color, opacity',
-            'transition-duration': '0.3s'
+            'transition-duration': '0.2s'
           }
         },
         {
           selector: 'edge[type = "shares-device"]',
           style: {
             'line-style': 'dashed',
-            'line-dash-pattern': [6, 3]
+            'line-dash-pattern': [5, 3]
           }
         },
         {
           selector: 'edge[type = "shares-address"]',
           style: {
             'line-style': 'dotted',
-            'line-dash-pattern': [3, 3]
+            'line-dash-pattern': [2, 3]
           }
         },
         {
           selector: '.highlighted',
           style: {
-            'border-color': '#ef4444',
+            'border-color': '#c92a2a',
             'border-width': 4,
-            'shadow-blur': 28,
-            'shadow-color': '#ef4444',
-            'shadow-opacity': 1,
+            'background-color': '#e03131',
+            'color': '#faf7f2',
             'opacity': 1,
             'z-index': 999
           }
@@ -168,10 +177,10 @@ export default function GraphCanvas({
         {
           selector: 'edge.highlighted',
           style: {
-            'width': 4,
-            'line-color': '#f43f5e',
-            'target-arrow-color': '#f43f5e',
-            'color': '#fecdd3',
+            'width': 3.5,
+            'line-color': '#c92a2a',
+            'target-arrow-color': '#c92a2a',
+            'color': '#faf7f2',
             'opacity': 1,
             'z-index': 998
           }
@@ -179,8 +188,8 @@ export default function GraphCanvas({
         {
           selector: '.dimmed',
           style: {
-            'opacity': 0.15,
-            'text-opacity': 0.15
+            'opacity': 0.12,
+            'text-opacity': 0.12
           }
         }
       ],
@@ -199,9 +208,11 @@ export default function GraphCanvas({
       }
     });
 
-    setTimeout(() => {
-      cy.resize();
-      cy.fit(undefined, 50);
+    const resizeTimer = setTimeout(() => {
+      if (cy && !cy.destroyed()) {
+        cy.resize();
+        cy.fit(undefined, 50);
+      }
     }, 60);
 
     // Node click
@@ -222,6 +233,7 @@ export default function GraphCanvas({
     // Hover tooltip
     cy.on('mouseover', 'node', (evt) => {
       const node = evt.target;
+      if (cy.destroyed()) return;
       const renderedPos = node.renderedPosition();
       const nodeData = scenario.nodes.find(n => n.id === node.id());
       setHoveredNode(nodeData);
@@ -235,15 +247,19 @@ export default function GraphCanvas({
     cyRef.current = cy;
 
     return () => {
-      if (cyRef.current) {
-        cyRef.current.destroy();
+      clearTimeout(resizeTimer);
+      if (cy && !cy.destroyed()) {
+        cy.destroy();
+      }
+      if (cyRef.current === cy) {
+        cyRef.current = null;
       }
     };
   }, [scenario]);
 
   // Handle active step highlighting & evidence dimming
   useEffect(() => {
-    if (!cyRef.current) return;
+    if (!cyRef.current || cyRef.current.destroyed()) return;
     const cy = cyRef.current;
 
     cy.batch(() => {
@@ -274,7 +290,7 @@ export default function GraphCanvas({
           cy.animate({
             center: { eles: highlightedNodes },
             zoom: 1.15,
-            duration: 400
+            duration: 350
           });
         } else if (highlightedNodes.length > 1) {
           cy.animate({
@@ -282,7 +298,7 @@ export default function GraphCanvas({
               eles: highlightedNodes,
               padding: 90
             },
-            duration: 400
+            duration: 350
           });
         }
       } else {
@@ -302,67 +318,69 @@ export default function GraphCanvas({
   };
 
   return (
-    <div className="relative w-full h-[580px] bg-[#090e1a] rounded-xl border border-slate-800/80 shadow-2xl overflow-hidden">
+    <div className="relative w-full h-[580px] bg-[#161513] border border-[#2c2924] overflow-hidden">
       {/* Top Bar inside Graph Canvas */}
       <div className="absolute top-3 left-3 right-3 z-10 flex items-center justify-between pointer-events-none">
-        {/* Graph Legend & Status */}
-        <div className="flex items-center gap-2 pointer-events-auto bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-lg border border-slate-800 text-xs shadow-lg">
-          <div className="flex items-center gap-1.5 mr-2">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-            <span className="font-semibold text-slate-200">Interactive Graph Centerpiece</span>
+        {/* Graph Legend & Status Header */}
+        <div className="flex items-center gap-2 pointer-events-auto bg-[#1a1917] px-2.5 py-1.5 border border-[#2c2924] text-xs">
+          <div className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 bg-[#c92a2a]"></span>
+            <span className="font-mono text-[10px] font-bold text-[#faf7f2]">
+              TOPOLOGY CANVAS
+            </span>
           </div>
 
-          <div className="h-3 w-[1px] bg-slate-700 mx-1" />
+          <div className="hidden sm:block h-3 w-[1px] bg-[#2c2924] mx-1" />
 
           {/* Node Types Legend */}
-          <div className="hidden sm:flex items-center gap-2 text-[11px] text-slate-300">
+          <div className="hidden sm:flex items-center gap-2.5 text-[10px] font-mono text-[#9e988a]">
             <span className="flex items-center gap-1">
-              <span className="w-2.5 h-2.5 rounded-full bg-blue-500" /> Account
+              <span className="w-2 h-2 rounded-full bg-[#ded9ce]" /> Account
             </span>
             <span className="flex items-center gap-1">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> Person
+              <span className="w-2 h-2 rounded-full bg-[#a8a294]" /> Person
             </span>
             <span className="flex items-center gap-1">
-              <span className="w-2.5 h-2.5 rounded-full bg-purple-500" /> Company
+              <span className="w-2 h-2 rounded-full bg-[#c2b49d]" /> Shell Co
             </span>
             <span className="flex items-center gap-1">
-              <span className="w-2.5 h-2.5 rounded-full bg-amber-500" /> Device
+              <span className="w-2 h-2 rounded-sm bg-[#c27803]" /> Device
             </span>
             <span className="flex items-center gap-1">
-              <span className="w-2.5 h-2.5 rounded-full bg-pink-500" /> Merchant
+              <span className="w-2 h-2 rotate-45 bg-[#b04a4a]" /> Merchant
             </span>
           </div>
         </div>
 
         {/* View Controls */}
-        <div className="flex items-center gap-1.5 pointer-events-auto bg-slate-900/90 backdrop-blur-md p-1 rounded-lg border border-slate-800 shadow-lg">
+        <div className="flex items-center gap-1 pointer-events-auto bg-[#1a1917] p-1 border border-[#2c2924]">
           <button
             onClick={handleZoomIn}
-            className="p-1.5 rounded hover:bg-slate-800 text-slate-300 hover:text-white transition"
+            className="p-1.5 hover:bg-[#22201d] text-[#9e988a] hover:text-[#ece7de] transition cursor-pointer"
             title="Zoom In"
           >
-            <ZoomIn className="w-4 h-4" />
+            <ZoomIn className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={handleZoomOut}
-            className="p-1.5 rounded hover:bg-slate-800 text-slate-300 hover:text-white transition"
+            className="p-1.5 hover:bg-[#22201d] text-[#9e988a] hover:text-[#ece7de] transition cursor-pointer"
             title="Zoom Out"
           >
-            <ZoomOut className="w-4 h-4" />
+            <ZoomOut className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={handleFit}
-            className="p-1.5 rounded hover:bg-slate-800 text-slate-300 hover:text-white transition"
+            className="p-1.5 hover:bg-[#22201d] text-[#9e988a] hover:text-[#ece7de] transition cursor-pointer"
             title="Fit to Screen"
           >
-            <Maximize2 className="w-4 h-4" />
+            <Maximize2 className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={handleReset}
-            className="p-1.5 rounded hover:bg-slate-800 text-slate-300 hover:text-white transition"
+            className="p-1.5 hover:bg-[#22201d] text-[#9e988a] hover:text-[#ece7de] transition cursor-pointer"
             title="Reset View & Un-dim"
           >
-            <RotateCcw className="w-4 h-4" />
+            <RotateCcw className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
@@ -371,63 +389,61 @@ export default function GraphCanvas({
       <div
         ref={containerRef}
         style={{ width: '100%', height: '580px', minHeight: '580px' }}
-        className="w-full h-full cursor-grab active:cursor-grabbing bg-grid-pattern"
+        className="w-full h-full cursor-grab active:cursor-grabbing bg-ledger-ruled"
       />
 
-      {/* Edge Types Sub-Legend */}
-      <div className="absolute bottom-3 left-3 z-10 pointer-events-auto bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-lg border border-slate-800 text-[11px] text-slate-400 flex items-center gap-3 shadow-lg">
-        <span className="font-semibold text-slate-300">Edges:</span>
-        <span className="flex items-center gap-1 text-cyan-400">
-          <span className="w-3 h-0.5 bg-cyan-400" /> Transfer
+      {/* Edge Types Sub-Legend & Forensic Annotation */}
+      <div className="absolute bottom-3 left-3 z-10 pointer-events-auto bg-[#1a1917] px-2.5 py-1 border border-[#2c2924] text-[9px] font-mono text-[#9e988a] flex items-center gap-2">
+        <span className="font-bold text-[#ece7de]">EDGES:</span>
+        <span className="flex items-center gap-1 text-[#8c8679]">
+          <span className="w-2 h-0.5 bg-[#8c8679]" /> Transfer
         </span>
-        <span className="flex items-center gap-1 text-purple-400">
-          <span className="w-3 h-0.5 bg-purple-400" /> Owns
+        <span className="flex items-center gap-1 text-[#6e685d]">
+          <span className="w-2 h-0.5 bg-[#6e685d]" /> Owns
         </span>
-        <span className="flex items-center gap-1 text-amber-400">
-          <span className="w-3 h-0.5 border-t border-dashed border-amber-400" /> Shares Device
-        </span>
-        <span className="flex items-center gap-1 text-emerald-400">
-          <span className="w-3 h-0.5 border-t border-dotted border-emerald-400" /> Shares Address
+        <span className="flex items-center gap-1 text-[#c27803]">
+          <span className="w-2 h-0.5 border-t border-dashed border-[#c27803]" /> Device
         </span>
       </div>
 
-      {/* Risk Pulsing Alert Overlay Pill */}
-      <div className="absolute bottom-3 right-3 z-10 pointer-events-auto bg-red-950/70 border border-red-500/40 text-red-300 px-3 py-1.5 rounded-lg backdrop-blur-md text-xs flex items-center gap-2 shadow-lg">
-        <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping" />
-        <span className="font-mono font-medium">Nodes with Risk &ge; 75 pulse in red</span>
+      {/* Forensic Stamped Risk Badge */}
+      <div className="hidden sm:flex absolute bottom-3 right-3 z-10 pointer-events-auto bg-[#251212] border border-[#5c1919] text-[#e03131] px-2.5 py-1 text-[10px] font-mono font-bold items-center gap-2">
+        <span className="w-1.5 h-1.5 bg-[#e03131]" />
+        <span>EVIDENCE STAMP: RISK &ge; 75 OUTLINED IN CRIMSON</span>
       </div>
 
-      {/* Floating Tooltip */}
+      {/* Floating Tooltip - Typewriter Style */}
       {hoveredNode && (
         <div
-          className="absolute z-30 pointer-events-none bg-slate-950/95 border border-slate-700/80 rounded-lg p-2.5 shadow-2xl text-xs backdrop-blur-md transition-all duration-75 min-w-[200px]"
+          className="absolute z-30 pointer-events-none bg-[#1a1917] border border-[#3f3b34] p-3 text-xs min-w-[210px] shadow-lg font-mono"
           style={{
             left: `${Math.min(window.innerWidth - 250, tooltipPos.x + 15)}px`,
             top: `${Math.max(10, tooltipPos.y - 40)}px`
           }}
         >
-          <div className="flex items-center justify-between gap-2 border-b border-slate-800 pb-1.5 mb-1.5">
-            <span className="font-bold text-slate-100 flex items-center gap-1.5">
+          <div className="flex items-center justify-between gap-2 border-b border-[#2c2924] pb-1.5 mb-1.5">
+            <span className="font-bold text-[#faf7f2] flex items-center gap-1.5">
               <span
-                className="w-2.5 h-2.5 rounded-full"
+                className="w-2 h-2"
                 style={{ backgroundColor: NODE_COLORS[hoveredNode.type] }}
               />
               {hoveredNode.label}
             </span>
-            <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono font-bold ${
-              hoveredNode.risk >= 75 ? 'bg-red-500/20 text-red-400 border border-red-500/40' :
-              hoveredNode.risk >= 40 ? 'bg-amber-500/20 text-amber-400' :
-              'bg-emerald-500/20 text-emerald-400'
+            <span className={`px-1 py-0.5 text-[9px] font-bold ${
+              hoveredNode.risk >= 75 ? 'bg-[#251212] text-[#e03131] border border-[#5c1919]' :
+              hoveredNode.risk >= 40 ? 'bg-[#26180a] text-[#c27803] border border-[#5a3507]' :
+              'bg-[#1a2418] text-[#2b8a3e] border border-[#1e3a1b]'
             }`}>
-              Risk: {hoveredNode.risk}
+              RISK: {hoveredNode.risk}
             </span>
           </div>
-          <p className="text-slate-400 text-[11px] mb-1">{hoveredNode.subtitle}</p>
-          <div className="text-[10px] text-slate-500 font-mono">
-            Click node for full transaction history & dossier
+          <p className="text-[#9e988a] text-[11px] mb-1 font-serif">{hoveredNode.subtitle}</p>
+          <div className="text-[9px] text-[#656157]">
+            [Click node for full transaction history &amp; dossier]
           </div>
         </div>
       )}
     </div>
   );
 }
+

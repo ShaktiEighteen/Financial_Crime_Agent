@@ -7,11 +7,11 @@ import AgentTimeline from './components/AgentTimeline';
 import ObservabilityPanel from './components/ObservabilityPanel';
 import RiskVerdictCard from './components/RiskVerdictCard';
 import ArchitectureDiagram from './components/ArchitectureDiagram';
+import AboutSection from './components/AboutSection';
 import NodeDetailModal from './components/NodeDetailModal';
 import DemoScriptModal from './components/DemoScriptModal';
 import Footer from './components/Footer';
 import { SCENARIOS } from './data/scenarios';
-import confetti from 'canvas-confetti';
 
 export default function App() {
   const [scenarioKey, setScenarioKey] = useState('fraud_ring');
@@ -78,11 +78,6 @@ export default function App() {
       setCurrentStepIndex(Math.min(1, steps.length - 1));
     } else if (stepNum === 3) {
       setCurrentStepIndex(steps.length - 1);
-      confetti({
-        particleCount: 50,
-        spread: 50,
-        origin: { y: 0.7 }
-      });
     }
   };
 
@@ -116,7 +111,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#070b14] text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#121110] text-[#ece7de] flex flex-col font-serif selection:bg-[#c92a2a]/30 selection:text-[#fff]">
       {/* Top Header */}
       <Header onOpenDemoScript={() => setIsDemoScriptOpen(true)} />
 
@@ -133,8 +128,8 @@ export default function App() {
           onWalkthroughStepChange={handleWalkthroughStepChange}
         />
 
-        {/* Module 9: Impact Strip (Verified Metrics) */}
-        <ImpactStrip metrics={scenario.impactMetrics} />
+        {/* Module 9: Forensic Case Ledger Strip */}
+        <ImpactStrip metrics={scenario.impactMetrics} scenario={scenario} />
 
         {/* Centerpiece Grid: Interactive Graph + Agent Controls */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -148,7 +143,7 @@ export default function App() {
               onSelectNode={setSelectedNode}
             />
 
-            {/* Module 8: System Architecture Diagram */}
+            {/* Module 8: System Architecture Schematic */}
             <ArchitectureDiagram />
           </div>
 
@@ -182,6 +177,9 @@ export default function App() {
             <RiskVerdictCard scenario={scenario} />
           </div>
         </div>
+
+        {/* Step 4: Human Copywriting - Why We Built This & Limitations */}
+        <AboutSection />
       </main>
 
       {/* Node Detail Flyout Drawer */}
@@ -202,3 +200,4 @@ export default function App() {
     </div>
   );
 }
+

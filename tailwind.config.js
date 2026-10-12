@@ -7,22 +7,40 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
-      colors: {
-        soc: {
-          bg: '#090d16',
-          panel: '#0f172a',
-          card: '#131e36',
-          border: '#1e293b',
-          accent: '#06b6d4',
-          danger: '#ef4444',
-          warning: '#f59e0b',
-          success: '#10b981'
-        }
+      fontFamily: {
+        display: ['Fraunces', 'Georgia', 'serif'],
+        serif: ['Newsreader', 'Georgia', 'serif'],
+        sans: ['Newsreader', 'Georgia', 'serif'],
+        mono: ['"Space Mono"', 'Consolas', 'monospace'],
       },
-      animation: {
-        'pulse-fast': 'pulse 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'ping-slow': 'ping 2s cubic-bezier(0, 0, 0.2, 1) infinite',
-      }
+      colors: {
+        paper: {
+          base: '#121110',
+          card: '#1a1917',
+          raised: '#22201d',
+          sheet: '#282622',
+        },
+        docket: {
+          border: '#2c2924',
+          'border-strong': '#3f3b34',
+          rule: '#23211d',
+          amber: '#c27803',
+          'amber-bg': '#26180a',
+          'amber-border': '#5a3507',
+        },
+        ink: {
+          DEFAULT: '#ece7de',
+          bright: '#faf7f2',
+          muted: '#9e988a',
+          faint: '#656157',
+        },
+        crimson: {
+          DEFAULT: '#c92a2a',
+          bright: '#e03131',
+          bg: '#251212',
+          border: '#5c1919',
+        },
+      },
     },
   },
   plugins: [],

@@ -8,39 +8,57 @@ export default function DemoScriptModal({ isOpen, onClose }) {
 
   const scriptSections = [
     {
-      time: '0:00 - 0:15',
-      heading: 'The Hook: The Tabular Blindspot',
-      dialogue: `"Judges, traditional compliance systems inspect transactions row by row in relational tables. To an isolated ledger, a $48,000 transfer between checking accounts looks completely ordinary. But financial crime syndicates don't hide in rows—they hide in graph topology. That is why we built Financial Crime Agent using FalkorDB."`,
-      action: 'Show the Hero value proposition and click "Run Sample Investigation" on Case #01 (Mule Fraud Ring).'
+      time: '0:00 - 0:25',
+      heading: 'The Hook & Trigger (Hero Section)',
+      screen: 'Scrolled to top. Full view of headline and red investigation button.',
+      cursor: 'Rest cursor near headline -> at 0:15 move down to red button -> CLICK at 0:18.',
+      dialogue: `"Traditional anti-money laundering systems inspect transactions row by row in relational spreadsheets. To an isolated database table, an account wiring $48,000 looks like an ordinary, compliant wire. But financial crime syndicates don't operate in rows—they hide in graph topology. That is why we built the Financial Crime Graph Agent powered by FalkorDB."`,
+      action: 'CLICK the red button [▶ RUN SAMPLE INVESTIGATION]. The graph starts animating and timeline steps start lighting up.'
     },
     {
-      time: '0:15 - 0:45',
-      heading: 'The Centerpiece: Graph Topology & Hardware Collisions',
-      dialogue: `"Look at our interactive graph centerpiece. An alert flagged Account ACC-101. When our agent walks the graph, it discovers five separate accounts—Alex, Jordan, Taylor, Sam, and Morgan—all authenticating through the exact same physical iPhone hardware ID (DEV-9842). In isolated database rows, this collision is completely invisible."`,
-      action: 'Hover over DEV-9842 and click ACC-101 to open the entity dossier drawer.'
+      time: '0:25 - 0:50',
+      heading: 'The Graph Centerpiece & Device Collision',
+      screen: 'Scroll down slightly so the Graph Canvas (left) and Reasoning Log (right) fill the screen.',
+      cursor: 'Move mouse onto canvas -> HOVER over center amber rectangle (iPhone 15 Pro) -> at 0:38 CLICK circle ACC-101 (Rivera) -> at 0:48 click "Dismiss Dossier".',
+      dialogue: `"Look at our interactive graph pinboard. An initial alert flagged Account ACC-101 for a wire spike. In a spreadsheet, that is where the trail goes cold. But when our agent walks the graph in FalkorDB, it reveals that five distinct accounts—Rivera, Lee, Kim, Patel, and Chen (Accounts 101 through 105)—all authenticate from the exact same physical iPhone in the center. In isolated spreadsheet rows, this collision is completely invisible."`,
+      action: 'Hover over iPhone 15 Pro in the center. Click ACC-101 (Rivera) to open the side dossier. Click "Dismiss Dossier" to close it.'
     },
     {
-      time: '0:45 - 1:15',
-      heading: 'Observability: FalkorDB Cypher vs 7-Table Relational SQL',
-      dialogue: `"Why FalkorDB? In our Observability panel, look at the difference. With FalkorDB Cypher, this 5-hop circular wash detection requires one 5-line openCypher query executing in 8.4 milliseconds. In relational SQL, that exact same question requires six recursive self-joins, multiple Common Table Expressions, table locks, and 1,420 milliseconds of latency."`,
-      action: 'Toggle between FalkorDB Cypher and Relational SQL in the Observability Panel.'
+      time: '0:50 - 1:15',
+      heading: 'Observability: FalkorDB Cypher vs Relational SQL',
+      screen: 'Look at right-hand column, middle box: "OBSERVABILITY & QUERY INSPECTOR".',
+      cursor: 'Move cursor to the toggle -> CLICK "Relational SQL" at 0:58 -> point to 1,420 ms -> CLICK "FalkorDB Cypher" back at 1:08.',
+      dialogue: `"Why FalkorDB? In our Observability panel, look at the difference. With FalkorDB Cypher, this 5-hop circular wash detection requires one 5-line openCypher query executing in 8.4 milliseconds because relationships are stored as direct in-memory pointers. In relational SQL, that exact same question requires six recursive CTEs, seven self-joins, and 1,420 milliseconds of latency."`,
+      action: 'Toggle between [Relational SQL] (highlight 1,420 ms / 7 joins) and [FalkorDB Cypher] (highlight 8.4 ms / 0 joins).'
     },
     {
-      time: '1:15 - 1:45',
+      time: '1:15 - 1:40',
       heading: 'Traceable Deductions: The Reasoning Log',
-      dialogue: `"Judges often ask: how can a compliance officer trust an agent? Notice our live Reasoning Log. Every deduction links directly to verifiable graph nodes. Clicking step 3 immediately zooms into the device collision; clicking step 4 reveals the closed loop returning $240,000 to the source while skimming a fee to an offshore gateway."`,
-      action: 'Step through the Reasoning Log; show active evidence highlighted on the graph while background noise dims.'
+      screen: 'Look at right-hand column, top box: "AGENT REASONING LOG".',
+      cursor: 'Move mouse up to Step 3 -> CLICK Step 3 at 1:20 -> move down to Step 4 -> CLICK Step 4 at 1:30.',
+      dialogue: `"A critical question with AI in compliance is: how can an investigator trust the agent? Notice our live Reasoning Log. The agent does not hallucinate. Every single deduction links directly to verifiable graph nodes. Clicking Step 3 highlights the device collision; clicking Step 4 traces the closed wash circuit of $240,000 returning to the source account while skimming a fee to an offshore gateway."`,
+      action: 'Click Step 3 (graph zooms to DEV-9842). Click Step 4 (graph highlights the full circular fund loop in red).'
     },
     {
-      time: '1:45 - 2:00',
-      heading: 'The Verdict & SAR: Regulatory Compliance Ready',
-      dialogue: `"Finally, the agent calculates a risk score of 95/100 and drafts a FinCEN Suspicious Activity Report with precise evidence references. Crucially, we enforce Human-in-the-Loop compliance—the compliance officer inspects the evidence and signs off before transmission. This shrinks investigation triage from 4.8 hours to 1.2 seconds."`,
-      action: 'Open the FinCEN Draft SAR Report and click Authorize Draft.'
+      time: '1:40 - 2:00',
+      heading: 'Risk Verdict & Human-in-the-Loop SAR',
+      screen: 'Look at right-hand column, bottom box: "RISK VERDICT & ASSESSMENT".',
+      cursor: 'Point to red "Risk Index 95/100" -> at 1:48 CLICK "Open FinCEN Draft SAR Report" -> close modal -> at 1:55 CLICK "AUTHORIZE DRAFT".',
+      dialogue: `"Finally, the agent compiles a Risk Verdict of 95/100 and drafts an official FinCEN Suspicious Activity Report with exact evidence references. Crucially, we enforce Human-in-the-Loop compliance—the agent surfaces the topological evidence, but the human compliance officer provides the legal sign-off. This turns 5 hours of manual spreadsheet stitching into under two seconds."`,
+      action: 'Click "Open FinCEN Draft SAR Report". Dismiss modal. Click "AUTHORIZE DRAFT" to show the green [✓ VERIFIED & SIGNED] stamp.'
     }
   ];
 
   const handleCopyFullScript = () => {
-    const fullText = scriptSections.map(s => `[${s.time}] ${s.heading}\nWHAT TO SAY:\n${s.dialogue}\nWHAT TO DO ON SCREEN:\n${s.action}\n`).join('\n---\n\n');
+    const fullText = scriptSections.map(s => 
+`[${s.time}] ${s.heading}
+SCREEN: ${s.screen}
+MOUSE / CURSOR: ${s.cursor}
+WHAT TO SAY:
+${s.dialogue}
+ACTION TO EXECUTE:
+${s.action}
+`).join('\n---\n\n');
     navigator.clipboard.writeText(fullText);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -53,10 +71,10 @@ export default function DemoScriptModal({ isOpen, onClose }) {
         <div className="p-4 border-b border-[#2c2924] bg-[#1a1917] flex items-center justify-between">
           <div>
             <h3 className="text-sm font-bold text-[#faf7f2]">
-              2-Minute Presentation Script (WeMakeDevs Hackathon Judges)
+              2-Minute Video Presentation Script &amp; Mouse Roadmap
             </h3>
             <p className="text-[11px] text-[#9e988a] font-serif">
-              Structured walkthrough designed to convey core value under 120 seconds
+              Step-by-step cue sheet: exactly where to look, hover, and click at each second
             </p>
           </div>
 
@@ -69,9 +87,9 @@ export default function DemoScriptModal({ isOpen, onClose }) {
         </div>
 
         {/* Script Content */}
-        <div className="p-5 overflow-y-auto space-y-3.5 text-xs">
+        <div className="p-5 overflow-y-auto space-y-4 text-xs">
           {scriptSections.map((sec, i) => (
-            <div key={i} className="bg-[#121110] p-4 border border-[#2c2924] space-y-2">
+            <div key={i} className="bg-[#121110] p-4 border border-[#2c2924] space-y-2.5">
               <div className="flex items-center justify-between">
                 <span className="font-bold text-[#faf7f2] flex items-center gap-2">
                   <span className="w-4 h-4 bg-[#26180a] text-[#c27803] border border-[#5a3507] flex items-center justify-center text-[10px]">
@@ -85,12 +103,27 @@ export default function DemoScriptModal({ isOpen, onClose }) {
                 </span>
               </div>
 
+              {/* Screen & Mouse Cue Box */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[10px] p-2 bg-[#181715] border border-[#262420]">
+                <div>
+                  <span className="text-[#656157] font-bold block mb-0.5">SCREEN VIEW:</span>
+                  <span className="text-[#9e988a]">{sec.screen}</span>
+                </div>
+                <div>
+                  <span className="text-[#c27803] font-bold block mb-0.5">MOUSE &amp; CLICKS:</span>
+                  <span className="text-[#ece7de]">{sec.cursor}</span>
+                </div>
+              </div>
+
+              {/* Dialogue */}
               <div className="p-3 bg-[#1a1917] border border-[#2c2924] text-[#dcd6ca] leading-relaxed font-serif text-[11px]">
+                <span className="font-mono text-[9px] uppercase tracking-wider text-[#656157] block mb-1">WHAT TO SAY:</span>
                 {sec.dialogue}
               </div>
 
+              {/* Action */}
               <div className="text-[10px] text-[#9e988a] flex items-center gap-1.5 pl-1 font-mono">
-                <span className="text-[#c27803] font-bold">ON SCREEN:</span>
+                <span className="text-[#e03131] font-bold">KEY EVENT:</span>
                 <span>{sec.action}</span>
               </div>
             </div>

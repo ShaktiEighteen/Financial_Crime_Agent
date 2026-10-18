@@ -263,20 +263,5 @@ python seed_data.py
 
 ---
 
-## ⏱️ 2-Minute Walkthrough & Video Demo Script
-
-- **0:00 - 0:25 [The Hook & Problem]**:
-  > *"Traditional anti-money laundering systems inspect transactions row by row in relational spreadsheets. To an isolated database table, an account wiring $48,000 looks like an ordinary, compliant wire. But financial crime syndicates don't operate in rows—they hide in graph topology. That is why we built the Financial Crime Graph Agent powered by FalkorDB."*
-- **0:25 - 0:50 [The Graph Pinboard & Hardware Collision]**:
-  > *"Looking at our transaction pinboard: an initial alert flagged Account ACC-101 held by Rivera for a wire spike. In a legacy relational spreadsheet, that is where the trail goes cold. But when our agent walks the graph in FalkorDB, it uncovers that five distinct accounts—Rivera, Lee, Kim, Patel, and Chen (Accounts 101 through 105)—all authenticate from the exact same physical iPhone (`DEV-9842`) in the center. In isolated spreadsheet rows, this collision is completely invisible."*
-- **0:50 - 1:15 [FalkorDB Cypher vs Relational SQL Benchmark]**:
-  > *"Why FalkorDB? In our Observability panel, look at the difference. With FalkorDB Cypher, this 5-hop circular wash detection requires one 5-line openCypher query executing in 8.4 milliseconds because relationships are stored as direct in-memory pointers. In relational SQL, that exact same question requires six recursive CTEs, seven self-joins, and 1,420 milliseconds of latency."*
-- **1:15 - 1:40 [Observable Agent Reasoning - Zero Hallucinations]**:
-  > *"A critical question with AI in compliance is: how can an investigator trust the agent? Notice our live Reasoning Log. The agent does not hallucinate. Every single deduction links directly to verifiable graph nodes. Clicking Step 3 highlights the device collision; clicking Step 4 traces the closed wash circuit of $240,000 returning to the source account while skimming a fee to Apex Offshore Pay."*
-- **1:40 - 2:00 [Verdict & Human-in-the-Loop SAR]**:
-  > *"Finally, the agent compiles a Risk Verdict of 95/100 and drafts an official FinCEN Suspicious Activity Report with exact evidence references. Crucially, we enforce Human-in-the-Loop compliance—the agent surfaces the topological evidence, but the human compliance officer provides the legal sign-off. This turns 5 hours of manual spreadsheet stitching into under two seconds."*
-
----
-
 ## ⚖️ Synthetic Data Disclosure
 All accounts, names, serial numbers, IP subnets, and transaction volumes in this project are 100% synthetic simulations created strictly for the WeMakeDevs Graph Hacks hackathon. No real-world customer PII is utilized.
